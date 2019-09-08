@@ -9,8 +9,8 @@ const WeatherRoutes: React.SFC<RouteComponentProps> = ({
 }: RouteComponentProps) => (
   <>
     <Switch>
-      <Route exact={true} path={match.url} component={CityWeather} />
-      <Route path={`${match.url}/city/:cityId`} component={SelectCity} />
+      <Route exact={true} path={match.url} component={SelectCity} />
+      <Route path={`${match.url}/city/:cityId`} component={CityWeather} />
     </Switch>
   </>
 );
