@@ -6,13 +6,13 @@ import SelectCity from './components/SelectCities';
 
 const WeatherRoutes: React.SFC<RouteComponentProps> = ({
   match,
-}: RouteComponentProps) => (
-  <>
+}: RouteComponentProps) => {
+  return (
     <Switch>
-      <Route exact={true} path={match.url} component={SelectCity} />
-      <Route path={`${match.url}/city/:cityId`} component={CityWeather} />
+      <Route path={`${match.url}city/:cityId`} component={CityWeather} />
+      <Route path={match.url} component={SelectCity} />
     </Switch>
-  </>
-);
+  );
+};
 
 export default withRouter(WeatherRoutes);

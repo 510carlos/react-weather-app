@@ -1,10 +1,19 @@
 import { List } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { RouteComponentProps } from 'react-router';
 import { getWeather } from '../Weather.helpers';
+
+import SelectCity from './SelectCities';
 
 import 'antd/dist/antd.css';
 
-const CityWeather = () => {
+interface IMatchParams {
+  cityId: string;
+}
+
+const CityWeather = ({ match }: RouteComponentProps<IMatchParams>) => {
+  const cityId: string = match.params.cityId;
+
   const [weather, setWeather] = useState({
     cityName: 'N/A',
     currentTemp: 'N/A',
@@ -14,7 +23,7 @@ const CityWeather = () => {
 
   useEffect(() => {
     let mounted = true;
-    getWeather(5391997).then(result => {
+    getWeather(cityId).then(result => {
       const { name, main } = result.data;
       if (mounted) {
         setWeather({
@@ -28,7 +37,7 @@ const CityWeather = () => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [cityId]);
 
   const data = [
     `City Name: ${weather.cityName}`,
@@ -38,11 +47,14 @@ const CityWeather = () => {
   ];
 
   return (
-    <List
-      bordered
-      dataSource={data}
-      renderItem={item => <List.Item>{item}</List.Item>}
-    />
+    <div>
+      <SelectCity />
+      <List
+        bordered
+        dataSource={data}
+        renderItem={item => <List.Item>{item}</List.Item>}
+      />
+    </div>
   );
 };
 
